@@ -36,7 +36,7 @@ export default function Hero({ onSelectAction }: HeroProps) {
       />
 
       {/* Floating hand-drawn callout on the right side pointing to the 3D character */}
-      <div className="hidden lg:flex absolute top-[26%] right-[22%] xl:right-[26%] z-10 flex-col items-center pointer-events-none select-none">
+      <div className="hidden lg:flex absolute top-[26%] right-[35%] xl:right-[26%] z-10 flex-col items-center pointer-events-none select-none">
         <div className="flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/25 text-white text-xs xl:text-sm font-medium tracking-wide shadow-xl transform -rotate-6">
           <span className="text-[#facc15]">✨</span>
           <span>Ideas into Impact</span>

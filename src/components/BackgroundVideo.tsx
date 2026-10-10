@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { saveVideoBlob, getVideoBlob, clearVideoBlob } from '../utils/videoStorage';
-import posterImage from '../assets/images/kling_character_poster_1791600977979.jpg';
 
-const DEFAULT_VIDEO_SRC = 'https://res.cloudinary.com/aoi1ofnl/video/upload/v1790020174/kling_20260922_VIDEO__594_0.mp4';
-const POSTER_SRC = posterImage;
+const DEFAULT_VIDEO_SRC = 'https://azqcixmokvhrtmholudu.supabase.co/storage/v1/object/public/videos/Video%20Project%201.mp4';
+
 
 interface BackgroundVideoProps {
   onVideoLoadedInfo?: (info: { isCustom: boolean; name?: string }) => void;
@@ -16,7 +15,7 @@ export default function BackgroundVideo({ onVideoLoadedInfo }: BackgroundVideoPr
   const [uploadToast, setUploadToast] = useState<string | null>(null);
 
   // Video adjustment state (persisted in localStorage)
-  const [horizontalPosition, setHorizontalPosition] = useState<number>(35);
+  const [horizontalPosition, setHorizontalPosition] = useState<number>(50);
   const [verticalPosition, setVerticalPosition] = useState<number>(() => {
     const saved = localStorage.getItem('bg_video_pos_y');
     return saved ? Number(saved) : 50;
@@ -38,9 +37,10 @@ export default function BackgroundVideo({ onVideoLoadedInfo }: BackgroundVideoPr
   const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
   const activeBlobUrlRef = useRef<string | null>(null);
 
-  // Apply requested framing x: 35%
+  // Apply requested framing: center (50% 50%)
   useEffect(() => {
-    localStorage.setItem('bg_video_pos_x', '35');
+    localStorage.setItem('bg_video_pos_x', '50');
+    localStorage.setItem('bg_video_pos_y', '50');
   }, []);
 
   // Save settings when changed
@@ -307,7 +307,6 @@ export default function BackgroundVideo({ onVideoLoadedInfo }: BackgroundVideoPr
         ref={videoRef}
         key={videoSrc}
         src={videoSrc}
-        poster={POSTER_SRC}
         muted
         loop
         playsInline
@@ -426,7 +425,7 @@ export default function BackgroundVideo({ onVideoLoadedInfo }: BackgroundVideoPr
                 <button
                   onClick={() => setHorizontalPosition(35)}
                   className={`py-1 rounded-md text-[11px] transition-colors cursor-pointer ${
-                    horizontalPosition === 35 ? 'bg-[#facc15] text-black font-semibold' : 'bg-white/10 hover:bg-white/20'
+                    horizontalPosition === 35 ? 'bg-white text-black font-semibold' : 'bg-white/10 hover:bg-white/20'
                   }`}
                 >
                   Focus (35%)
@@ -434,7 +433,7 @@ export default function BackgroundVideo({ onVideoLoadedInfo }: BackgroundVideoPr
                 <button
                   onClick={() => setHorizontalPosition(50)}
                   className={`py-1 rounded-md text-[11px] transition-colors cursor-pointer ${
-                    horizontalPosition === 50 ? 'bg-white text-black font-semibold' : 'bg-white/10 hover:bg-white/20'
+                    horizontalPosition === 50 ? 'bg-[#facc15] text-black font-semibold' : 'bg-white/10 hover:bg-white/20'
                   }`}
                 >
                   Center (50%)
@@ -533,7 +532,7 @@ export default function BackgroundVideo({ onVideoLoadedInfo }: BackgroundVideoPr
             <div className="pt-2 border-t border-white/10 flex justify-between items-center">
               <button
                 onClick={() => {
-                  setHorizontalPosition(35);
+                  setHorizontalPosition(50);
                   setVerticalPosition(50);
                   setVideoZoom(100);
                   setMotionMode('ambient');
